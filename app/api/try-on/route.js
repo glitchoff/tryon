@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import formidable from 'formidable';
 import axios from 'axios';
-import { readFileSync } from 'fs';
 
 const API_KEY = process.env.RAPIDAPI_KEY; // Store in Vercel environment variables
 const API_URL = 'https://try-on-diffusion.p.rapidapi.com/try-on-file';
@@ -14,33 +12,32 @@ function allowedFile(filename) {
 
 export async function POST(req) {
   try {
-    // Parse multipart/form-data using formidable
-    const form = formidable({ multiples: true, maxFileSize: 4 * 1024 * 1024 }); // 4MB limit
-    const { fields, files } = await new Promise((resolve, reject) => {
-      form.parse(req, (err, fields, files) => {
-        if (err) reject(err);
-        resolve({ fields, files });
-      });
-    });
-
-    const clothingImage = files.clothing_image?.[0];
-    const avatarImage = files.avatar_image?.[0];
+    // Parse multipart/form-data using req.formData()
+    const formData = await req.formData();
+    const clothingImage = formData.get('clothing_image');
+    const avatarImage = formData.get('avatar_image');
 
     if (!clothingImage || !avatarImage) {
       return NextResponse.json({ error: 'Missing clothing_image or avatar_image' }, { status: 400 });
     }
 
-    if (!allowedFile(clothingImage.originalFilename) || !allowedFile(avatarImage.originalFilename)) {
+    // Validate file extensions
+    if (!allowedFile(clothingImage.name) || !allowedFile(avatarImage.name)) {
       return NextResponse.json({ error: 'Images must be JPEG or PNG' }, { status: 400 });
     }
 
+    // Validate file size (4MB limit)
+    if (clothingImage.size > 4 * 1024 * 1024 || avatarImage.size > 4 * 1024 * 1024) {
+      return NextResponse.json({ error: 'File size exceeds 4MB limit' }, { status: 400 });
+    }
+
     // Create FormData for RapidAPI request
-    const formData = new FormData();
-    formData.append('clothing_image', new Blob([readFileSync(clothingImage.filepath)]), clothingImage.originalFilename);
-    formData.append('avatar_image', new Blob([readFileSync(avatarImage.filepath)]), avatarImage.originalFilename);
+    const apiFormData = new FormData();
+    apiFormData.append('clothing_image', clothingImage);
+    apiFormData.append('avatar_image', avatarImage);
 
     // Make request to RapidAPI
-    const response = await axios.post(API_URL, formData, {
+    const response = await axios.post(API_URL, apiFormData, {
       headers: {
         'x-rapidapi-key': API_KEY,
         'x-rapidapi-host': API_HOST,
