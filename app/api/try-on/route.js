@@ -1,6 +1,9 @@
+import { NextResponse } from 'next/server';
+import formidable from 'formidable';
 import axios from 'axios';
+import { readFileSync } from 'fs';
 
-const API_KEY = 'a083733c96msh67b99e9ad7be1d2p1a18afjsnd43694f97d97'; // Replace with your RapidAPI key
+const API_KEY = process.env.RAPIDAPI_KEY; // Store in Vercel environment variables
 const API_URL = 'https://try-on-diffusion.p.rapidapi.com/try-on-file';
 const API_HOST = 'try-on-diffusion.p.rapidapi.com';
 const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -11,29 +14,33 @@ function allowedFile(filename) {
 
 export async function POST(req) {
   try {
-    const formData = await req.formData();
-    const clothingImage = formData.get('clothing_image');
-    const avatarImage = formData.get('avatar_image');
+    // Parse multipart/form-data using formidable
+    const form = formidable({ multiples: true, maxFileSize: 4 * 1024 * 1024 }); // 4MB limit
+    const { fields, files } = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        resolve({ fields, files });
+      });
+    });
+
+    const clothingImage = files.clothing_image?.[0];
+    const avatarImage = files.avatar_image?.[0];
 
     if (!clothingImage || !avatarImage) {
-      return new Response(JSON.stringify({ error: 'Missing clothing_image or avatar_image' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return NextResponse.json({ error: 'Missing clothing_image or avatar_image' }, { status: 400 });
     }
 
-    if (!allowedFile(clothingImage.name) || !allowedFile(avatarImage.name)) {
-      return new Response(JSON.stringify({ error: 'Images must be JPEG or PNG' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+    if (!allowedFile(clothingImage.originalFilename) || !allowedFile(avatarImage.originalFilename)) {
+      return NextResponse.json({ error: 'Images must be JPEG or PNG' }, { status: 400 });
     }
 
-    const form = new FormData();
-    form.append('clothing_image', clothingImage, clothingImage.name);
-    form.append('avatar_image', avatarImage, avatarImage.name);
+    // Create FormData for RapidAPI request
+    const formData = new FormData();
+    formData.append('clothing_image', new Blob([readFileSync(clothingImage.filepath)]), clothingImage.originalFilename);
+    formData.append('avatar_image', new Blob([readFileSync(avatarImage.filepath)]), avatarImage.originalFilename);
 
-    const response = await axios.post(API_URL, form, {
+    // Make request to RapidAPI
+    const response = await axios.post(API_URL, formData, {
       headers: {
         'x-rapidapi-key': API_KEY,
         'x-rapidapi-host': API_HOST,
@@ -50,40 +57,25 @@ export async function POST(req) {
 
     if (response.status !== 200) {
       if (response.status === 401) {
-        return new Response(JSON.stringify({ error: 'Invalid API key' }), {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' },
-        });
+        return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
       }
       if (response.status === 429) {
-        return new Response(JSON.stringify({ error: 'API rate limit exceeded' }), {
-          status: 429,
-          headers: { 'Content-Type': 'application/json' },
-        });
+        return NextResponse.json({ error: 'API rate limit exceeded' }, { status: 429 });
       }
-      return new Response(JSON.stringify({ error: 'API request failed' }), {
-        status: response.status,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return NextResponse.json({ error: 'API request failed' }, { status: response.status });
     }
 
     const contentType = response.headers['content-type'];
     if (!contentType || !contentType.startsWith('image/')) {
-      return new Response(JSON.stringify({ error: 'Unexpected response format' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return NextResponse.json({ error: 'Unexpected response format' }, { status: 500 });
     }
 
-    return new Response(Buffer.from(response.data), {
+    return new NextResponse(Buffer.from(response.data), {
       status: 200,
       headers: { 'Content-Type': contentType },
     });
   } catch (error) {
     console.error('Server error:', error);
-    return new Response(JSON.stringify({ error: `Server error: ${error.message}` }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return NextResponse.json({ error: `Server error: ${error.message}` }, { status: 500 });
   }
 }

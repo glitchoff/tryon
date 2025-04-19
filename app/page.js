@@ -15,6 +15,10 @@ export default function Home() {
   const handleImageChange = (e, setImage) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 4 * 1024 * 1024) { // 4MB limit
+        setError('File size exceeds 4MB limit');
+        return;
+      }
       setImage({ src: URL.createObjectURL(file), file });
       setError('');
     }
@@ -29,6 +33,10 @@ export default function Home() {
     if (clothingImage.file && modelImage.file) {
       formData.append('clothing_image', clothingImage.file);
       formData.append('avatar_image', modelImage.file);
+    } else {
+      setError('Please upload both model and clothing images');
+      setIsLoading(false);
+      return;
     }
 
     try {
@@ -124,7 +132,7 @@ export default function Home() {
                   </button>
                 </>
               ) : (
-                <span className="text-gray-500">Upload Image</span>
+                <span className="text-gray-500">Upload Superman Image</span>
               )}
             </div>
             <input
