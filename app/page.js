@@ -15,10 +15,8 @@ export default function Home() {
   const handleImageChange = (e, setImage) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 4 * 1024 * 1024) { // 4MB limit
-        setError('File size exceeds 4MB limit');
-        return;
-      }
+      // Removed file size limit
+      console.log('Selected file:', file.name, 'size:', file.size);
       setImage({ src: URL.createObjectURL(file), file });
       setError('');
     }
@@ -40,28 +38,60 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/try-on', {
+      // Send request directly to RapidAPI endpoint
+      const RAPIDAPI_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY;
+      const RAPIDAPI_HOST = "try-on-diffusion.p.rapidapi.com";
+      const RAPIDAPI_URL = "https://try-on-diffusion.p.rapidapi.com/try-on-file";
+
+      console.log('Sending fetch to RapidAPI...');
+      const response = await fetch(RAPIDAPI_URL, {
         method: 'POST',
+        headers: {
+          'x-rapidapi-key': RAPIDAPI_KEY,
+          'x-rapidapi-host': RAPIDAPI_HOST
+          // 'Content-Type' is automatically set by the browser when using FormData
+        },
         body: formData,
       });
+      console.log('Fetch response received:', response.status, response.statusText);
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'API request failed');
+        // Try to parse error from RapidAPI
+        let errorMsg = 'API request failed';
+        try {
+          const errorData = await response.json();
+          errorMsg = errorData.error || errorMsg;
+          console.error('RapidAPI error response:', errorData);
+        } catch (errParse) {
+          console.error('Error parsing error response:', errParse);
+        }
+        throw new Error(errorMsg);
       }
 
       const contentType = response.headers.get('Content-Type');
+      console.log('Response Content-Type:', contentType);
       if (contentType && contentType.startsWith('image/')) {
         const blob = await response.blob();
-        setOutputImage(URL.createObjectURL(blob));
+        const imageUrl = URL.createObjectURL(blob);
+        setOutputImage(imageUrl);
+        console.log('Output image set:', imageUrl);
       } else {
-        const text = await response.json();
-        throw new Error(text.error || 'Unexpected response format');
+        let text = 'Unexpected response format';
+        try {
+          const data = await response.json();
+          text = data.error || text;
+          console.error('Unexpected non-image response:', data);
+        } catch (errParse) {
+          console.error('Error parsing non-image response:', errParse);
+        }
+        throw new Error(text);
       }
     } catch (err) {
       setError(err.message);
+      console.error('Error in handleTryOn:', err);
     } finally {
       setIsLoading(false);
+      console.log('Try-on process finished.');
     }
   };
 
