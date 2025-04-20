@@ -218,7 +218,7 @@ export default function HomePage() {
               </div>
               {pin.title && (
                 <div className="p-3 border-t border-gray-100 text-center">
-                  <span className="text-base font-semibold text-gray-700">{pin.title}</span>
+                  <span className="text-gray-400 font-medium">Result Image</span><span className="text-base font-semibold text-gray-700">{pin.title}</span>
                 </div>
               )}
             </div>
@@ -241,15 +241,21 @@ export default function HomePage() {
               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
             >
               <div className="relative h-64 group">
-                <img
+                <Image
                   src={avatar.image}
                   alt={avatar.name}
+                  fill
                   className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-60 transition-opacity"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority={false}
                 />
-                <img
+                <Image
                   src={clothingSuggestions[avatar.id % clothingSuggestions.length].image}
                   alt="Clothing"
+                  fill
                   className="absolute inset-0 w-full h-full object-contain p-4"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority={false}
                 />
                 <Link
                   href={`/tryon?q=${encodeURIComponent(clothingSuggestions[avatar.id % clothingSuggestions.length].image)}`}
@@ -288,10 +294,14 @@ export default function HomePage() {
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
               >
                 <div className="relative group">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
+                    width={400}
+                    height={256}
                     className="w-full h-64 object-cover group-hover:opacity-80 transition-opacity"
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                    loading="lazy"
                   />
                   <Link
                     href={`/tryon?q=${encodeURIComponent(item.image)}`}
