@@ -13,9 +13,12 @@ export default function Navbar() {
   return (
     <>
       <nav className="bg-white shadow-lg px-6 py-4 flex justify-between items-center sticky top-0 z-50">
-        <Link href="/" className="text-3xl font-extrabold text-purple-600 tracking-tight">
-          StyleAI
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link href="/">
+            <Image src="/logo.png" alt="Logo" width={40} height={40} className="mr-2" />
+          </Link>
+          <Link href="/" className="text-3xl font-[geist] text-black tracking-tight">Stylish <span className="text-purple-600">AI</span></Link>
+        </div>
         <div className="flex items-center space-x-8">
           <Link href="/" className="text-gray-700 hover:text-purple-600 font-medium transition">
             Home
