@@ -3,8 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image'; // Import Image from next/image
-import Navbar from '@/components/Navbar';
-
 export default function Home() {
   const [modelImage, setModelImage] = useState({ src: '', file: null });
   const [clothingImage, setClothingImage] = useState({ src: '', file: null });
@@ -167,7 +165,7 @@ export default function Home() {
 
   return (
  <>
- <Navbar />
+
     <div className="min-h-screen w-full flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-gray-100 to-gray-200">
       <Head>
         <title>Virtual Try-On</title>
