@@ -516,7 +516,7 @@ export default function TryOn() {
                 <b>Best Results:</b> Use clear, well-lit clothing images on a person or ghost mannequin with minimal occlusion. Prompts should be specific and descriptive.
               </li>
               <li>
-                <b>Try On:</b> Click the "Try On" button to generate the virtual try-on image. The result will appear below, and you can download or share it.
+                <b>Try On:</b> Click the &quot;Try On&quot; button to generate the virtual try-on image. The result will appear below, and you can download or share it.
               </li>
             </ul>
           </div>
