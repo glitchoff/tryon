@@ -472,7 +472,7 @@ export default function HomePage() {
 
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-lg font-semibold text-gray-800">{avatar.name}'s Look</h3>
+                    <h3 className="text-lg font-semibold text-gray-800">{avatar.name}&#39;s Look</h3>
                     <span className="px-3 py-1 bg-purple-100 text-purple-600 text-xs font-medium rounded-full">
                       Featured
                     </span>
@@ -506,7 +506,7 @@ export default function HomePage() {
               </span>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Personalized Recommendations</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Based on your style preferences, we've curated these looks just for you.
+                Based on your style preferences, weve curated these looks just for you.
               </p>
             </div>
 
