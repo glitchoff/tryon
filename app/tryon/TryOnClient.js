@@ -121,8 +121,15 @@ function TryOnContent() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'API request failed');
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (e) {
+          errorData = { error: 'API request failed' };
+        }
+        setError(errorData.error || JSON.stringify(errorData) || 'API request failed');
+        setIsLoading(false);
+        return;
       }
 
       const contentType = response.headers.get('Content-Type');
