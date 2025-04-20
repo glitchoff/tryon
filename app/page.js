@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import ProfileOverlay from '@/components/ProfileOverlay';
+
 
 // Mock clothing suggestions
 const clothingSuggestions = [
@@ -94,16 +93,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Pass profile and onProfileClick to Navbar */}
-      <Navbar profile={profile} onProfileClick={() => setIsProfileOpen(true)} />
-
-      {/* Profile Overlay */}
-      <ProfileOverlay
-        isOpen={isProfileOpen}
-        onClose={() => setIsProfileOpen(false)}
-        onSave={saveProfile}
-        existingProfile={profile}
-      />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-28 flex items-center justify-center overflow-hidden">
