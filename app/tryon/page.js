@@ -501,7 +501,7 @@ export default function TryOn() {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">How to Use</h3>
             <ul className="text-sm text-gray-600 space-y-3">
               <li>
-                <b>Avatar:</b> Upload an image or enter a prompt describing the person (e.g., &quot;young woman with long hair&quot;). Select "File," "Prompt," or "Both" using the switcher.
+                <b>Avatar:</b> Upload an image or enter a prompt describing the person (e.g., &quot;young woman with long hair&quot;). Select File, Prompt, or Both using the switcher.
               </li>
               <li>
                 <b>Clothing:</b> Upload a clothing image (JPEG/PNG/WEBP, ≤12MB, min 256x256px, recommended 768x1024px+) or describe the clothing (e.g., &quot;red dress&quot;). Use the switcher to choose input mode.
