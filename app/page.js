@@ -76,15 +76,11 @@ export default function Home() {
         setOutputImage(imageUrl);
         console.log('Output image set:', imageUrl);
       } else {
-        let text = 'Unexpected response format';
-        try {
-          const data = await response.json();
-          text = data.error || text;
-          console.error('Unexpected non-image response:', data);
-        } catch (errParse) {
-          console.error('Error parsing non-image response:', errParse);
-        }
-        throw new Error(text);
+        // Show the full response as text for debugging
+        const responseText = await response.text();
+        setError(responseText);
+        console.error('Non-image API response:', responseText);
+        return;
       }
     } catch (err) {
       setError(err.message);
