@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
+import Image from 'next/image'; // Import Image from next/image
 
 export default function Home() {
   const [modelImage, setModelImage] = useState({ src: '', file: null });
@@ -223,7 +224,7 @@ export default function Home() {
                     <div className="w-32 h-32 border-2 border-gray-200 rounded-lg flex items-center justify-center overflow-hidden bg-white/80 relative mx-auto">
                       {modelImage.src ? (
                         <>
-                          <img src={modelImage.src} alt="Model Preview" className="max-w-full max-h-full object-contain" />
+                          <Image src={modelImage.src} alt="Model Preview" className="max-w-full max-h-full object-contain" width={128} height={128} />
                           <button
                             onClick={resetModelImage}
                             className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 shadow-sm"
@@ -314,7 +315,7 @@ export default function Home() {
                     <div className="w-32 h-32 border-2 border-gray-200 rounded-lg flex items-center justify-center overflow-hidden bg-white/80 relative mx-auto">
                       {clothingImage.src ? (
                         <>
-                          <img src={clothingImage.src} alt="Clothing Preview" className="max-w-full max-h-full object-contain" />
+                          <Image src={clothingImage.src} alt="Clothing Preview" className="max-w-full max-h-full object-contain" width={128} height={128} />
                           <button
                             onClick={resetClothingImage}
                             className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 shadow-sm"
@@ -369,7 +370,7 @@ export default function Home() {
                 aria-label="Background prompt"
               />
               <div className="text-xs text-gray-500">
-                If not provided, the original avatar background is preserved. Example: "in an autumn park"
+                If not provided, the original avatar background is preserved. Example: &quot;in an autumn park&quot;
               </div>
             </div>
             {/* Try On Button */}
@@ -396,7 +397,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Result</h2>
             <div className="w-full max-w-md h-96 border-2 border-gray-200 rounded-2xl overflow-hidden bg-gray-50 shadow-sm flex items-center justify-center">
               {outputImage ? (
-                <img src={outputImage} alt="Output Preview" className="max-w-full max-h-full object-contain" />
+                <Image src={outputImage} alt="Output Preview" className="max-w-full max-h-full object-contain" width={384} height={512} />
               ) : (
                 <span className="text-gray-400 font-medium">Result Image</span>
               )}
@@ -438,13 +439,13 @@ export default function Home() {
           <h3 className="text-lg font-semibold text-gray-800 mb-4">How to Use</h3>
           <ul className="text-sm text-gray-600 space-y-3">
             <li>
-              <b>Avatar:</b> Upload an image or enter a prompt describing the person (e.g., "young woman with long hair"). Select "File," "Prompt," or "Both" using the switcher.
+              <b>Avatar:</b> Upload an image or enter a prompt describing the person (e.g., &quot;young woman with long hair&quot;). Select &quot;File,&quot; &quot;Prompt,&quot; or &quot;Both&quot; using the switcher.
             </li>
             <li>
-              <b>Clothing:</b> Upload a clothing image (JPEG/PNG/WEBP, ≤12MB, min 256x256px, recommended 768x1024px+) or describe the clothing (e.g., "red dress"). Use the switcher to choose input mode.
+              <b>Clothing:</b> Upload a clothing image (JPEG/PNG/WEBP, ≤12MB, min 256x256px, recommended 768x1024px+) or describe the clothing (e.g., &quot;red dress&quot;). Use the switcher to choose input mode.
             </li>
             <li>
-              <b>Background:</b> Optionally describe the background (e.g., "in an autumn park"). If left blank, the original avatar background is preserved.
+              <b>Background:</b> Optionally describe the background (e.g., &quot;in an autumn park&quot;). If left blank, the original avatar background is preserved.
             </li>
             <li>
               <b>Options:</b> Set avatar sex (Auto, Male, Female) and seed (optional) for consistent results.
@@ -453,7 +454,7 @@ export default function Home() {
               <b>Best Results:</b> Use clear, well-lit clothing images on a person or ghost mannequin with minimal occlusion. Prompts should be specific and descriptive.
             </li>
             <li>
-              <b>Try On:</b> Click the "Try On" button to generate the virtual try-on image. The result will appear below, and you can download or share it.
+              <b>Try On:</b> Click the &quot;Try On&quot; button to generate the virtual try-on image. The result will appear below, and you can download or share it.
             </li>
           </ul>
         </div>
