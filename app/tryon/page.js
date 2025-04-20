@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -197,7 +197,7 @@ export default function TryOn() {
   }, [isLoading]);
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="min-h-screen w-full flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-gray-100 to-gray-200">
         <Head>
           <title>Virtual Try-On</title>
@@ -522,6 +522,6 @@ export default function TryOn() {
           </div>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 }
