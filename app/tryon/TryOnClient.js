@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import AvatarInput from './components/AvatarInput';
 import ClothingInput from './components/ClothingInput';
-import BackgroundInput from './components/BackgroundInput.js';
-import ResultSection from './components/ResultSection.js';
+import BackgroundInput from './components/BackgroundInput';
+import ResultSection from './components/ResultSection';
 
 export default function TryOnClient() {
   return (
@@ -200,8 +200,7 @@ function TryOnContent() {
                 className="ml-4 text-red-600 font-bold text-lg"
                 aria-label="Close error message"
               >
-                ×
-              </button>
+(UINT8Array[0xC3][0x97])              </button>
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -260,13 +259,13 @@ function TryOnContent() {
           <h3 className="text-lg font-semibold text-gray-800 mb-4">How to Use</h3>
           <ul className="text-sm text-gray-600 space-y-3">
             <li>
-              <b>Avatar:</b> Upload an image or describe the person (e.g., "young woman with long hair").
+              <b>Avatar:</b> Upload an image or describe the person (e.g., &quot;young woman with long hair&quot;).
             </li>
             <li>
-              <b>Clothing:</b> Upload a clothing image (≤12MB, min 256x256px) or describe it (e.g., "red dress").
+              <b>Clothing:</b> Upload a clothing image (≤12MB, min 256x256px) or describe it (e.g., &quot;red dress&quot;).
             </li>
             <li>
-              <b>Background:</b> Optionally describe the background (e.g., "in an autumn park").
+              <b>Background:</b> Optionally describe the background (e.g., &quot;in an autumn park&quot;).
             </li>
             <li>
               <b>Options:</b> Set avatar sex and seed for consistent results.
@@ -275,7 +274,7 @@ function TryOnContent() {
               <b>Best Results:</b> Use clear, well-lit clothing images with minimal occlusion.
             </li>
             <li>
-              <b>Try On:</b> Click "Try On" to generate the image. Download or share the result.
+              <b>Try On:</b> Click &quot;Try On&quot; to generate the image. Download or share the result.
             </li>
           </ul>
         </div>

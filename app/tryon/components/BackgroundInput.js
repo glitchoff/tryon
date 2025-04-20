@@ -14,7 +14,7 @@ export default function BackgroundInput({ backgroundPrompt, setBackgroundPrompt 
         aria-label="Background prompt"
       />
       <div className="text-xs text-gray-500">
-        If not provided, the original avatar background is preserved. Example: "in an autumn park"
+        If not provided, the original avatar background is preserved. Example: &quot;in an autumn park&quot;
       </div>
     </div>
   );
