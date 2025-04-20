@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function ProfileOverlay({ isOpen, onClose, onSave, existingProfile }) {
   const [preview, setPreview] = useState(existingProfile?.image || '');
@@ -63,7 +64,7 @@ export default function ProfileOverlay({ isOpen, onClose, onSave, existingProfil
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
             />
             {(preview) && (
-              <img
+              <Image
                 src={preview}
                 alt="Profile Preview"
                 className="mt-2 w-20 h-20 rounded-full object-cover"

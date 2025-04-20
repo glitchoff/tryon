@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useProfile } from './ProfileContext';
 import ProfileOverlay from './ProfileOverlay';
@@ -24,7 +25,7 @@ export default function Navbar() {
           </Link>
           {profile ? (
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setIsProfileOpen(true)}>
-              <img
+              <Image
                 src={profile.image || 'https://via.placeholder.com/40'}
                 alt="Profile"
                 className="w-10 h-10 rounded-full object-cover border-2 border-purple-200"

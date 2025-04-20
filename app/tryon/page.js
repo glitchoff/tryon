@@ -421,7 +421,7 @@ export default function TryOn() {
                   aria-label="Background prompt"
                 />
                 <div className="text-xs text-gray-500">
-                  If not provided, the original avatar background is preserved. Example: "in an autumn park"
+                  If not provided, the original avatar background is preserved. Example: &quot;in an autumn park&quot;
                 </div>
               </div>
               {/* Try On Button */}
@@ -501,13 +501,13 @@ export default function TryOn() {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">How to Use</h3>
             <ul className="text-sm text-gray-600 space-y-3">
               <li>
-                <b>Avatar:</b> Upload an image or enter a prompt describing the person (e.g., "young woman with long hair"). Select "File," "Prompt," or "Both" using the switcher.
+                <b>Avatar:</b> Upload an image or enter a prompt describing the person (e.g., &quot;young woman with long hair&quot;). Select "File," "Prompt," or "Both" using the switcher.
               </li>
               <li>
-                <b>Clothing:</b> Upload a clothing image (JPEG/PNG/WEBP, ≤12MB, min 256x256px, recommended 768x1024px+) or describe the clothing (e.g., "red dress"). Use the switcher to choose input mode.
+                <b>Clothing:</b> Upload a clothing image (JPEG/PNG/WEBP, ≤12MB, min 256x256px, recommended 768x1024px+) or describe the clothing (e.g., &quot;red dress&quot;). Use the switcher to choose input mode.
               </li>
               <li>
-                <b>Background:</b> Optionally describe the background (e.g., "in an autumn park"). If left blank, the original avatar background is preserved.
+                <b>Background:</b> Optionally describe the background (e.g., &quot;in an autumn park&quot;). If left blank, the original avatar background is preserved.
               </li>
               <li>
                 <b>Options:</b> Set avatar sex (Auto, Male, Female) and seed (optional) for consistent results.
