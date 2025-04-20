@@ -187,7 +187,7 @@ export const pins = [
       category: "Jackets",
     },
     {
-      src: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+      src: "https://images.unsplash.com/photo-1555620366-c4c9d9cbb8e8?q=80&w=1972&auto=format&fit=crop&w=400&q=80",
       alt: "Woman in coat dress",
       title: "Coat Dress",
       gender: "Female",
