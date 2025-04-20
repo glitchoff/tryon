@@ -40,14 +40,29 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/try-on', {
+      // Send request directly to RapidAPI endpoint
+      const RAPIDAPI_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY;
+      const RAPIDAPI_HOST = "try-on-diffusion.p.rapidapi.com";
+      const RAPIDAPI_URL = "https://try-on-diffusion.p.rapidapi.com/try-on-file";
+
+      const response = await fetch(RAPIDAPI_URL, {
         method: 'POST',
+        headers: {
+          'x-rapidapi-key': RAPIDAPI_KEY,
+          'x-rapidapi-host': RAPIDAPI_HOST
+          // 'Content-Type' is automatically set by the browser when using FormData
+        },
         body: formData,
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'API request failed');
+        // Try to parse error from RapidAPI
+        let errorMsg = 'API request failed';
+        try {
+          const errorData = await response.json();
+          errorMsg = errorData.error || errorMsg;
+        } catch {}
+        throw new Error(errorMsg);
       }
 
       const contentType = response.headers.get('Content-Type');
@@ -55,8 +70,12 @@ export default function Home() {
         const blob = await response.blob();
         setOutputImage(URL.createObjectURL(blob));
       } else {
-        const text = await response.json();
-        throw new Error(text.error || 'Unexpected response format');
+        let text = 'Unexpected response format';
+        try {
+          const data = await response.json();
+          text = data.error || text;
+        } catch {}
+        throw new Error(text);
       }
     } catch (err) {
       setError(err.message);
