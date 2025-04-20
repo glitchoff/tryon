@@ -146,13 +146,7 @@ export const pins = [
       gender: "Female",
       category: "Dresses"
     },
-    {
-      src: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
-      alt: "Casual Denim Jacket",
-      title: "Casual Denim Jacket",
-      gender: "Male",
-      category: "Jackets"
-    },
+    
     {
       src: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
       alt: "Tailored Blazer",
@@ -161,10 +155,74 @@ export const pins = [
       category: "Shirts"
     },
     {
-      src: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80",
-      alt: "Athletic Hoodie",
-      title: "Athletic Hoodie",
-      gender: "Male",
-      category: "Hoodies"
+        src: "https://i.pinimg.com/236x/e3/76/ae/e376aef7c23443df26dd9c95e20024a1.jpg",
+        alt: "Discover the latest winter outfits for men in streetwear fashion From hoodies to coats and jackets boots and more elevate your style for 2024 with an aesthetic touch Embrace the cold of 2023 with Korean-inspired pieces and create effortlessly stylish looks for the winter season Explore the fusion of streetwear from Japan to Paris London and beyond with a mix of black brown and black pants",
+        title: "Chill Out in Style 17 Winter Outfit Ideas for Men That Impress",
+        gender: "Male",
+        category: "Jackets"
     },
+    {
+        src: "https://i.pinimg.com/236x/36/84/cd/3684cdb6c819f360486e0b1b489167a0.jpg",
+        alt: "Men's Varsity Jacket School Uniforms Daily Wear Warm Button Pocket Spring Fall Color Block Comfort Leisure Standing Collar Black White Blue Jacket Easy 30 day return policy",
+        title: "Men's Varsity Jacket School Uniforms Daily Wear Warm Button Pocket Spring Fall Color Block Comfort Leisure Standing Collar Black White Blue Jacket",
+        gender: "Male",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/f7/d7/30/f7d7300285c96b96c5bf4cd6202a7a49.jpg",
+        alt: "Style : CasualNeckline : HoodedType : OtherFit Type : Regular FitPlacket : Single BreastedSleeve Type : Regular SleeveDetails : Button FrontColor : BlackPattern Type : PlainSleeve Length : Long SleeveLength : RegularFabric : Non-StretchMaterial : Woven FabricComposition : 100% PolyesterTemperature : Winter (<10℃/50℉)Care Instructions : Machine wash or professional dry cleanSheer : NoUSSizeShoulder Length Sleeve Length Bust Cuff Bicep Length  36 S 17.5 28 25.9 41.7 9.8 16.5 38 M 18.1 28.7 26.4 43",
+        title: "Manfinity Homme Men 1pc Thermal Lined Hooded Coat Going Out Hooded Black Warm Jacket Casual Flannel Coat, For Friends, Husband, Boyfriend Gifts",
+        gender: "Male",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/a0/ed/cc/a0edccbf676a1336d8b87ff007dc716b.jpg",
+        alt: "Material:PolyesterLength:RegularSleeve Length:Long SleeveSleeve Type:Regular SleevePatterned:AlphabetsSheer:NoFabric:Medium StretchPlacket Type:PlacketPlacket:Single BreastedCollar Style:Baseball CollarCare Instructions:Hand wash or professional dry cleanScene:BaseballFit Type:LooseComposition:100% PolyesterWeaving Method:Knit FabricItem ID:NB31586 There maybe 1-2 cm deviation in different sizes, locations and stretch of fabrics. Size chart is for reference only, there may be a little difference",
+        title: "kkboxly Letter Print Varsity Jacket, Men's Casual Baseball Jacket Coat Regular Fit College Hipster Windbreaker For Spring Autumn - Burgundy / M(38)",
+        gender: "Male",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/31/2d/88/312d883c99b315616e1eeb7cb4da77a7.jpg",
+        alt: "A jacket to draw the comfort!!",
+        title: "Jackets ideas",
+        gender: "Female",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/26/51/94/265194104db83a3e8b8d550c3003d749.jpg",
+        alt: "Meet Finland’s Rising Fashion Stars - finnish-fashion-9-Wmag I love how the designer turned a jacket/coat into a dress",
+        title: "Jackets ideas",
+        gender: "Female",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/62/b1/91/62b191aa793e91581b3ac6ef3b2d9a1a.jpg",
+        alt: "carousel image 0",
+        title: "Luxury 3-Piece Men's Suit Set - Wedding & Business",
+        gender: "Male",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/8f/b3/8f/8fb38f284775ae6b71b678943811cecc.jpg",
+        alt: "This contains an image of:",
+        title: "",
+        gender: "Male",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/1a/e9/c9/1ae9c940491fe431813e4ce66a7b4976.jpg",
+        alt: "This contains an image of: Classy Meets Contemporary 21 Stylish Suits Every Modern Man Needs",
+        title: "Classy Meets Contemporary 21 Stylish Suits Every Modern Man Needs",
+        gender: "Male",
+        category: "Jackets"
+    },
+    {
+        src: "https://i.pinimg.com/236x/8b/de/4d/8bde4db05c914e7111eb95b8dbe8174e.jpg",
+        alt: "This contains an image of: 『ZIOZIA　』",
+        title: "『ZIOZIA　』",
+        gender: "Male",
+        category: "Jackets"
+    }
   ];
+  
