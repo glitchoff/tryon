@@ -29,9 +29,12 @@ export default function Navbar() {
           {profile ? (
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setIsProfileOpen(true)}>
               <Image
+                width={40}
+                height={40}
                 src={profile.image || 'https://via.placeholder.com/40'}
                 alt="Profile"
                 className="w-10 h-10 rounded-full object-cover border-2 border-purple-200"
+                unoptimized
               />
               <span className="text-gray-700 font-medium">{profile.name}</span>
             </div>

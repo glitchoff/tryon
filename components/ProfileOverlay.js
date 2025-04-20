@@ -65,10 +65,13 @@ export default function ProfileOverlay({ isOpen, onClose, onSave, existingProfil
             />
             {(preview) && (
               <Image
-                src={preview}
-                alt="Profile Preview"
-                className="mt-2 w-20 h-20 rounded-full object-cover"
-              />
+              width={80}
+              height={80}
+              src={preview}
+              alt="Profile Preview"
+              className="mt-2 w-20 h-20 rounded-full object-cover"
+              unoptimized
+            />
             )}
           </div>
           <div>

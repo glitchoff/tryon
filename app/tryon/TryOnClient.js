@@ -19,6 +19,23 @@ export default function TryOnClient() {
 function TryOnContent() {
   // State
   const [modelImage, setModelImage] = useState({ src: '', file: null });
+
+  // On mount, auto-insert avatar image from localStorage if available
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (modelImage.src) return; // don't overwrite if already set
+    try {
+      const profileStr = localStorage.getItem('profile');
+      if (profileStr) {
+        const profile = JSON.parse(profileStr);
+        if (profile.image && profile.image.startsWith('data:image/')) {
+          setModelImage({ src: profile.image, file: null });
+        }
+      }
+    } catch (err) {
+      // ignore errors
+    }
+  }, [modelImage.src]);
   const [clothingImage, setClothingImage] = useState({ src: '', file: null });
   const [outputImage, setOutputImage] = useState('');
   const [error, setError] = useState('');
