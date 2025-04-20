@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-
+import Image from 'next/image';
+import { pins } from '@/db/pin';
 // Mock clothing suggestions
 const clothingSuggestions = [
   {
@@ -55,7 +55,29 @@ const demoAvatars = [
   },
 ];
 
+// Pinterest pins array
+
+
 export default function HomePage() {
+  // Pinterest Filters State
+  const [genderFilter, setGenderFilter] = useState('All');
+  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Unique categories from pins array
+  const categories = Array.from(new Set(pins.map(pin => pin.category)));
+
+  // Filter pins by gender, category, and search
+  const filteredPins = pins.filter(pin => {
+    const genderMatch = genderFilter === 'All' || pin.gender === genderFilter;
+    const categoryMatch = categoryFilter === 'All' || pin.category === categoryFilter;
+    const searchMatch =
+      !searchQuery ||
+      (pin.title && pin.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (pin.alt && pin.alt.toLowerCase().includes(searchQuery.toLowerCase()));
+    return genderMatch && categoryMatch && searchMatch;
+  });
+
   const [profile, setProfile] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -93,7 +115,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-28 flex items-center justify-center overflow-hidden">
         <div className="max-w-5xl mx-auto text-center px-4 z-10">
@@ -118,6 +139,93 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Pinterest-style Pins Grid */}
+      <section className="py-16 px-4 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          Trending Pinterest Pins
+        </h2>
+        {/* Filters and Search */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          {/* Gender Filter */}
+          <div className="flex gap-2 justify-center">
+            {['All', 'Male', 'Female'].map(gender => (
+              <button
+                key={gender}
+                className={`px-4 py-2 rounded-full font-medium border transition ${
+                  genderFilter === gender
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-purple-100'
+                }`}
+                onClick={() => setGenderFilter(gender)}
+              >
+                {gender}
+              </button>
+            ))}
+          </div>
+          {/* Category Tabs */}
+          <div className="flex gap-2 justify-center flex-wrap">
+            {['All', ...categories].map(category => (
+              <button
+                key={category}
+                className={`px-4 py-2 rounded-full font-medium border transition ${
+                  categoryFilter === category
+                    ? 'bg-indigo-600 text-white'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-indigo-100'
+                }`}
+                onClick={() => setCategoryFilter(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          {/* Search Bar */}
+          <div className="flex justify-center">
+            <input
+              type="text"
+              placeholder="Search pins..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+              style={{ minWidth: 200 }}
+            />
+          </div>
+        </div>
+        {/* Pins Grid */}
+        <div className="columns-1 sm:columns-2 md:columns-3 gap-6 [column-fill:_balance]">
+          {filteredPins.map((pin, idx) => (
+            <div
+              key={idx}
+              className="mb-6 break-inside-avoid rounded-2xl overflow-hidden shadow-md bg-white hover:shadow-xl transition duration-300 w-full max-w-xs mx-auto"
+            >
+              <div className="relative group">
+                <Link href={`/tryon?q=${encodeURIComponent(pin.src)}`}>
+                  <Image
+                    src={pin.src}
+                    alt={pin.alt || `Pin ${idx + 1}`}
+                    width={400}
+                    height={533}
+                    className="w-full object-cover group-hover:opacity-80 transition-opacity"
+                    style={{ aspectRatio: '3/4', background: '#eee' }}
+                    loading="lazy"
+                  />
+                </Link>
+                <Link
+                  href={`/tryon?q=${encodeURIComponent(pin.src)}`}
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 shadow-md"
+                >
+                  Try On
+                </Link>
+              </div>
+              {pin.title && (
+                <div className="p-3 border-t border-gray-100 text-center">
+                  <span className="text-base font-semibold text-gray-700">{pin.title}</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Demo Section */}
       <section className="py-16 px-4 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
@@ -132,17 +240,23 @@ export default function HomePage() {
               key={avatar.id}
               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
             >
-              <div className="relative h-64">
+              <div className="relative h-64 group">
                 <img
                   src={avatar.image}
                   alt={avatar.name}
-                  className="absolute inset-0 w-full h-full object-cover opacity-70"
+                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-60 transition-opacity"
                 />
                 <img
                   src={clothingSuggestions[avatar.id % clothingSuggestions.length].image}
                   alt="Clothing"
                   className="absolute inset-0 w-full h-full object-contain p-4"
                 />
+                <Link
+                  href={`/tryon?q=${encodeURIComponent(clothingSuggestions[avatar.id % clothingSuggestions.length].image)}`}
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 shadow-md"
+                >
+                  Try On
+                </Link>
               </div>
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-gray-800">{avatar.name}’s Try-On</h3>
@@ -173,7 +287,19 @@ export default function HomePage() {
                 key={item.id}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
               >
-                <img src={item.image} alt={item.name} className="w-full h-64 object-cover" />
+                <div className="relative group">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-64 object-cover group-hover:opacity-80 transition-opacity"
+                  />
+                  <Link
+                    href={`/tryon?q=${encodeURIComponent(item.image)}`}
+                    className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 shadow-md"
+                  >
+                    Try On
+                  </Link>
+                </div>
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
                   <p className="text-gray-600">{item.category}</p>
