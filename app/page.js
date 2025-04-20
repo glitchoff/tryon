@@ -162,7 +162,7 @@ export default function Home() {
                   </button>
                 </>
               ) : (
-                <span className="text-gray-500">Upload Superman Image</span>
+                <span className="text-gray-500">Upload Clothing Image</span>
               )}
             </div>
             <input
