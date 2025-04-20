@@ -218,7 +218,7 @@ export default function HomePage() {
               </div>
               {pin.title && (
                 <div className="p-3 border-t border-gray-100 text-center">
-                  <span className="text-gray-400 font-medium">Result Image</span><span className="text-base font-semibold text-gray-700">{pin.title}</span>
+                  <span className="text-gray-400 font-medium"></span><span className="text-base font-semibold text-gray-700">{pin.title}</span>
                 </div>
               )}
             </div>
