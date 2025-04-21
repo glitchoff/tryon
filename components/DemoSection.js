@@ -52,7 +52,7 @@ export default function DemoSection({ demoAvatars, clothingSuggestions }) {
               </div>
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-semibold text-gray-800">{avatar.name}'s Look</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">{avatar.name}&#39;s Look</h3>
                   <span className="px-3 py-1 bg-purple-100 text-purple-600 text-xs font-medium rounded-full">
                     Featured
                   </span>
