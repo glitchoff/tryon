@@ -95,7 +95,7 @@ export default function GeminiChatbot() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -109,8 +109,9 @@ export default function GeminiChatbot() {
       {/* Floating Button */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-teal-500 to-purple-500 text-white p-4 rounded-full shadow-lg hover:scale-105 focus:outline-none"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-teal-500 to-purple-500 text-white p-4 rounded-full shadow-lg hover:scale-105 focus:outline-none transition-transform active:scale-95"
         aria-label={open ? "Close chatbot" : "Open chatbot"}
+        style={{ touchAction: 'manipulation' }}
       >
         {open ? (
           <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M18 6L6 18M6 6l12 12"/></svg>
@@ -120,14 +121,14 @@ export default function GeminiChatbot() {
       </button>
       {/* Chatbot Popup */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 max-w-full bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col" style={{ height: 480 }}>
+        <div className="fixed bottom-20 right-2 left-2 sm:bottom-24 sm:right-6 sm:left-auto z-50 w-full sm:w-80 max-w-full bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col" style={{ height: '70vh', maxHeight: 520 }}>
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-teal-500 to-purple-500 rounded-t-2xl">
             <span className="text-white font-semibold text-lg">StyleAI Gemini Chat</span>
             <button onClick={() => setOpen(false)} className="text-white hover:text-gray-200">
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-4 py-3 bg-gray-50" style={{ minHeight: 0 }}>
+          <div className="flex-1 overflow-y-auto px-2 py-2 sm:px-4 sm:py-3 bg-gray-50" style={{ minHeight: 0 }}>
             {messages.length === 0 && (
               <div className="text-gray-400 text-center mt-10">Ask about clothes, style, or anything! 👗🧥👚</div>
             )}
@@ -137,11 +138,12 @@ export default function GeminiChatbot() {
                 className={`mb-2 flex ${msg.type === "right" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`rounded-xl px-3 py-2 max-w-[80%] text-sm whitespace-pre-line shadow ${
+                  className={`rounded-xl px-3 py-2 max-w-[90vw] sm:max-w-[80%] text-sm whitespace-pre-line shadow ${
                     msg.type === "right"
                       ? "bg-gradient-to-r from-teal-400 to-purple-400 text-white"
                       : "bg-white border border-gray-200 text-gray-700"
                   }`}
+                  style={{ wordBreak: 'break-word' }}
                 >
                   {msg.chatmessage}
                 </div>
@@ -149,7 +151,7 @@ export default function GeminiChatbot() {
             ))}
             {loading && (
               <div className="flex justify-start mb-2">
-                <div className="rounded-xl px-3 py-2 max-w-[80%] text-sm bg-white border border-gray-200 text-gray-400 flex items-center gap-2">
+                <div className="rounded-xl px-3 py-2 max-w-[90vw] sm:max-w-[80%] text-sm bg-white border border-gray-200 text-gray-400 flex items-center gap-2">
                   <span className="animate-pulse">Thinking</span>
                   <span className="inline-block w-2 h-2 bg-gradient-to-r from-teal-400 to-purple-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></span>
                   <span className="inline-block w-2 h-2 bg-gradient-to-r from-teal-400 to-purple-400 rounded-full animate-bounce" style={{animationDelay: '100ms'}}></span>
@@ -160,7 +162,7 @@ export default function GeminiChatbot() {
             <div ref={messagesEndRef} />
           </div>
           {error && <div className="text-red-500 text-xs px-4 pb-1">{error}</div>}
-          <div className="p-3 border-t border-gray-100 bg-white flex gap-2">
+          <div className="p-2 sm:p-3 border-t border-gray-100 bg-white flex gap-2">
             <textarea
               className="flex-1 resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 bg-gray-50 min-h-[36px] max-h-20"
               rows={1}
@@ -169,12 +171,14 @@ export default function GeminiChatbot() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={loading}
+              style={{ fontSize: '1rem', minWidth: 0 }}
             />
             <button
               onClick={sendMessage}
               disabled={loading || !input.trim()}
               className="bg-gradient-to-r from-teal-500 to-purple-500 text-white px-3 py-2 rounded-lg shadow hover:scale-105 transition-transform disabled:opacity-50"
               aria-label="Send"
+              style={{ minWidth: 40, minHeight: 40 }}
             >
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>

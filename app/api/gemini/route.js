@@ -1,33 +1,24 @@
 import axios from "axios";
 import { Readable } from "stream";
 
+export async function OPTIONS(request) {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization"
+    },
+  });
+}
+
 export async function POST(request) {
   const testMode = process.env.TEST_MODE === "true";
 
   try {
-    // Validate the request origin
-    const origin = request.headers.get("Origin") || request.headers.get("Referer") || "";
-    const allowedOrigins = [
-      "http://192.168.254.220:3000",
-      "http://10.88.0.3:3000",
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "https://chatflora.vercel.app",
-      "https://chatflora.xyz",
-    ];
-
-    if (!testMode) {
-      const isValidOrigin = allowedOrigins.some((allowed) =>
-        origin.startsWith(allowed) || origin === ""
-      );
-
-      if (!isValidOrigin) {
-        return new Response(JSON.stringify({ error: "Unauthorized origin" }), {
-          status: 403,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-    }
+    // Allow all origins - CORS open
+    // (Removed origin validation logic)
+    // Set CORS headers for all responses below as needed.
 
     const { message, history, profile } = await request.json();
     // Debug: log received data
@@ -178,6 +169,9 @@ Don’t act robotic — be expressive, casual, and on-brand with a fashion-forwa
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
       },
     });
   } catch (error) {
@@ -187,7 +181,12 @@ Don’t act robotic — be expressive, casual, and on-brand with a fashion-forwa
     }
     return new Response(JSON.stringify({ error: errorMessage }), {
       status: 500,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
     });
   }
 }
