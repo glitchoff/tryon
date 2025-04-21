@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -25,10 +24,10 @@ export default function HeroSection() {
         </svg>
       </div>
       <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-purple-600 mb-6 drop-shadow-lg" style={{ visibility: "visible" }}>
           Discover Your Style Instantly
         </h1>
-        <p className="text-xl md:text-2xl text-white mb-8 font-medium">
+        <p className="text-xl md:text-2xl text-purple-600 mb-8 font-medium" style={{ visibility: "visible" }}>
           Join thousands of fashion enthusiasts who are discovering their perfect style with our AI-powered virtual try-on.
         </p>
         <Link
