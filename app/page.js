@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { pins } from "@/db/pin"
 import { Search, Heart, Sparkles, ChevronRight, Filter, X, ArrowRight, Zap } from "lucide-react"
+import GeminiChatbot from "./components/GeminiChatbot";
 
 // Mock clothing suggestions
 const clothingSuggestions = [
@@ -123,6 +124,7 @@ export default function HomePage() {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-800">
       
 
@@ -724,5 +726,7 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
+    <GeminiChatbot />
+    </>
   )
 }
